@@ -1,16 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst;net7.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst;net8.0-windows10.0.22621.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SmartstoreApp</RootNamespace>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <UseMaui>true</UseMaui>
-    <ApplicationTitle>Africa Chicks Shopping</ApplicationTitle>
   </PropertyGroup>
 
   <ItemGroup>
-    <MauiXaml Include="App.xaml" />
-    <MauiXaml Include="MainPage.xaml" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.0" />
+    <!-- Add other packages as needed -->
   </ItemGroup>
 
 </Project>

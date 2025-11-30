@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst;net7.0-windows10.0.19041.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SmartstoreApp</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <ApplicationTitle>Africa Chicks Shopping</ApplicationTitle>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MauiXaml Include="App.xaml" />
+    <MauiXaml Include="MainPage.xaml" />
+  </ItemGroup>
+
+</Project>

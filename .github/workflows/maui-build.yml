@@ -13,16 +13,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup .NET SDK
+      - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
+
+      - name: Install MAUI workloads
+        run: dotnet workload install maui
 
       - name: Restore NuGet packages
         run: dotnet restore
 
       - name: Publish Android app
-        run: dotnet publish -f net7.0-android -c Release -o ./artifacts/android
+        run: dotnet publish -f net8.0-android -c Release -o ./artifacts/android
 
       - name: Upload Android artifact
         uses: actions/upload-artifact@v4
@@ -36,16 +39,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup .NET SDK
+      - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
+
+      - name: Install MAUI workloads
+        run: dotnet workload install maui
 
       - name: Restore NuGet packages
         run: dotnet restore
 
       - name: Publish iOS app (unsigned)
-        run: dotnet publish -f net7.0-ios -c Release -o ./artifacts/ios /p:RuntimeIdentifier=ios-arm64
+        run: dotnet publish -f net8.0-ios -c Release -o ./artifacts/ios /p:RuntimeIdentifier=ios-arm64
 
       - name: Upload iOS artifact
         uses: actions/upload-artifact@v4
@@ -59,16 +65,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup .NET SDK
+      - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
+
+      - name: Install MAUI workloads
+        run: dotnet workload install maui
 
       - name: Restore NuGet packages
         run: dotnet restore
 
       - name: Publish Windows app
-        run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release -o ./artifacts/windows
+        run: dotnet publish -f net8.0-windows10.0.22621.0 -c Release -o ./artifacts/windows
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
@@ -82,16 +91,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup .NET SDK
+      - name: Setup .NET 8 SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0.x'
+          dotnet-version: '8.0.x'
+
+      - name: Install MAUI workloads
+        run: dotnet workload install maui
 
       - name: Restore NuGet packages
         run: dotnet restore
 
       - name: Publish MacCatalyst app
-        run: dotnet publish -f net7.0-maccatalyst -c Release -o ./artifacts/macos
+        run: dotnet publish -f net8.0-maccatalyst -c Release -o ./artifacts/macos
 
       - name: Upload Mac artifact
         uses: actions/upload-artifact@v4
@@ -99,29 +111,27 @@ jobs:
           name: AfricaChicksShopping_Mac
           path: ./artifacts/macos
 
-  build-linux:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install Electron and dependencies
-        run: |
-          npm install -g electron-packager
-          npm install electron --save-dev
-
-      - name: Create Linux Electron App
-        run: |
-          mkdir -p ./artifacts/linux
-          electron-packager . "Africa Chicks Shopping" --platform=linux --arch=x64 --out=./artifacts/linux --overwrite
-
-      - name: Upload Linux artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: AfricaChicksShopping_Linux
-          path: ./artifacts/linux
+#  build-linux:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v3
+#
+#      - name: Setup Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: '20'
+#
+#      - name: Install Electron
+#        run: npm install electron --save-dev
+#
+#      - name: Package Linux App (commented out until PWA ready)
+#        run: |
+#          mkdir -p ./artifacts/linux
+#          electron-packager ./wwwroot "Africa Chicks Shopping" --platform=linux --arch=x64 --out=./artifacts/linux --overwrite
+#
+#      - name: Upload Linux artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: AfricaChicksShopping_Linux
+#          path: ./artifacts/linux

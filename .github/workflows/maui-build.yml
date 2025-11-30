@@ -25,7 +25,7 @@ jobs:
         run: dotnet publish -f net7.0-android -c Release -o ./artifacts/android
 
       - name: Upload Android artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AfricaChicksShopping_Android
           path: ./artifacts/android
@@ -48,7 +48,7 @@ jobs:
         run: dotnet publish -f net7.0-ios -c Release -o ./artifacts/ios /p:RuntimeIdentifier=ios-arm64
 
       - name: Upload iOS artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AfricaChicksShopping_iOS
           path: ./artifacts/ios
@@ -71,7 +71,7 @@ jobs:
         run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release -o ./artifacts/windows
 
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AfricaChicksShopping_Windows
           path: ./artifacts/windows
@@ -94,7 +94,34 @@ jobs:
         run: dotnet publish -f net7.0-maccatalyst -c Release -o ./artifacts/macos
 
       - name: Upload Mac artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AfricaChicksShopping_Mac
           path: ./artifacts/macos
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Electron and dependencies
+        run: |
+          npm install -g electron-packager
+          npm install electron --save-dev
+
+      - name: Create Linux Electron App
+        run: |
+          mkdir -p ./artifacts/linux
+          electron-packager . "Africa Chicks Shopping" --platform=linux --arch=x64 --out=./artifacts/linux --overwrite
+
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AfricaChicksShopping_Linux
+          path: ./artifacts/linux
